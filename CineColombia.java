@@ -1,8 +1,11 @@
 // Juan Esteban Rosero Jimenez
 // Laura Sofia Hernandez Chaparro
-import  java.util.*;
+import java.util.*;
 
 public class CineColombia {
+    private static Queue<String> colaCompras = new LinkedList<>();
+    private static Stack<String> historialCompras = new Stack<>();
+
     public static ArbolSillas generarSillas() {
         ArbolSillas arbol = new ArbolSillas();
 
@@ -14,136 +17,132 @@ public class CineColombia {
 
         return arbol;
     }
+
     public static void main(String[] args) {
-        listaBoletos boletos =new listaBoletos();
+        listaBoletos boletos = new listaBoletos();
         Scanner sc = new Scanner(System.in);
-        ArbolSillas sala1=generarSillas();
-        ArbolSillas sala2=generarSillas();
-        ArbolSillas sala3=generarSillas();
-        final int valorBoleta=8000;
+        ArbolSillas sala1 = generarSillas();
+        ArbolSillas sala2 = generarSillas();
+        ArbolSillas sala3 = generarSillas();
+        final int valorBoleta = 8000;
         int op;
-        String pelicula;
-        String  silla;
+        String silla;
+
         System.out.println("Bienvenido a Cine Colombia. Selecione una opción");
         do {
-            System.out.println(" 1) Comprar Boleto \n 2) Consultar boleto \n 3) Ver Todos los Boletos \n 4) Salir");
+            System.out.println(" 1) Crear puesto en fila \n 2) Atender cliente \n 3) Consultar boleto \n 4) Ver Todos los Boletos \n 5) Ver Historial de Compras \n 6) Salir");
             System.out.print("Escriba su opción: ");
-            op=sc.nextInt();
+            op = sc.nextInt();
             sc.nextLine();
-            switch (op){
+            switch (op) {
                 case 1:
-                    System.out.println("Escriba el numero de la pelicula que va a ver: \n" +
-                            "1)Blanca nieves-Sala 1\n" +
-                            "2)Capitan America-Sala 2\n" +
-                            "3)Minecraft movie-Sala 3 \n");
-                    op=sc.nextInt();
-                    sc.nextLine();
-                    System.out.println("Escriba el numero de silla (Recordar las filas van de la A a J y son 16 sillas por cada una): ");
-                    silla=sc.nextLine();
-                    if (op==1) {
-                        if (sala1.buscar(silla)) {
-                            sala1.eliminar(silla);
-                            System.out.println("El precio de la boleta es: " + valorBoleta);
-                            System.out.println("Si va a pagar en efectivo escriba 1, si va a pagar con tarjeta escriba 2: ");
-                            op=sc.nextInt();
-                            sc.nextLine();
-                            if (op==1) {
-                                System.out.println("escriba el dinero que va a pagar: ");
-                                int dinero=sc.nextInt();
-                                sc.nextLine();
-                                if (dinero>=valorBoleta) {
-                                    System.out.println("Pago aceptado. \n");
-                                    boletos.insertarBoleto(1, "Blanca nieves", silla);
-                                } else {
-                                    System.out.println("Dinero insuficiente. \n");
-                                }
-                            } else if (op==2) {
-                                System.out.println("Escriba el numero de la tarjeta: ");
-                                String tarjeta=sc.nextLine();
-                                System.out.println("Escriba el codigo de seguridad: ");
-                                int codigo=sc.nextInt();
-                                sc.nextLine();
-                                System.out.println("Pago aceptado. \n");
-                                boletos.insertarBoleto(1, "Blanca nieves", silla);
-                            } else {
-                                System.out.println("Opción no válida. \n");
-                            }
-                        }
-                    }else if (op==2) {
-                        if (sala2.buscar(silla)) {
-                            sala2.eliminar(silla);
-                            System.out.println("El precio de la boleta es: " + valorBoleta);
-                            System.out.println("Si va a pagar en efectivo escriba 1, si va a pagar con tarjeta escriba 2: ");
-                            op=sc.nextInt();
-                            sc.nextLine();
-                            if (op==1) {
-                                System.out.println("escriba el dinero que va a pagar: ");
-                                int dinero=sc.nextInt();
-                                sc.nextLine();
-                                if (dinero>=valorBoleta) {
-                                    System.out.println("Pago aceptado. \n");
-                                    boletos.insertarBoleto(2, "Capitan America", silla);
-                                } else {
-                                    System.out.println("Dinero insuficiente. \n");
-                                }
-                            } else if (op==2) {
-                                System.out.println("Escriba el numero de la tarjeta: ");
-                                String tarjeta=sc.nextLine();
-                                System.out.println("Escriba el codigo de seguridad: ");
-                                int codigo=sc.nextInt();
-                                sc.nextLine();
-                                System.out.println("Pago aceptado. \n");
-                                boletos.insertarBoleto(2, "Capitan America", silla);
-                            } else {
-                                System.out.println("Opción no válida. \n");
-                            }
-                        }
-                    }else if (op==3) {
-                        if (sala3.buscar(silla)) {
-                            sala3.eliminar(silla);
-                            System.out.println("El precio de la boleta es: " + valorBoleta);
-                            System.out.println("Si va a pagar en efectivo escriba 1, si va a pagar con tarjeta escriba 2: ");
-                            op=sc.nextInt();
-                            sc.nextLine();
-                            if (op==1) {
-                                System.out.println("escriba el dinero que va a pagar: ");
-                                int dinero=sc.nextInt();
-                                sc.nextLine();
-                                if (dinero>=valorBoleta) {
-                                    System.out.println("Pago aceptado. \n");
-                                    boletos.insertarBoleto(3, "Minecraft movie", silla);
-                                } else {
-                                    System.out.println("Dinero insuficiente. \n");
-                                }
-                            } else if (op==2) {
-                                System.out.println("Escriba el numero de la tarjeta: ");
-                                String tarjeta=sc.nextLine();
-                                System.out.println("Escriba el codigo de seguridad: ");
-                                int codigo=sc.nextInt();
-                                sc.nextLine();
-                                System.out.println("Pago aceptado. \n");
-                                boletos.insertarBoleto(3, "Minecraft movie", silla);
-                            } else {
-                                System.out.println("Opción no válida. \n");
-                            }
-
-                        }
-                    }
+                    System.out.print("Ingrese su nombre para crear un puesto en la fila: ");
+                    String nombre = sc.nextLine();
+                    colaCompras.add(nombre);
+                    System.out.println(nombre + ", ha sido añadido a la fila de compras. Por favor espere su turno.");
                     break;
                 case 2:
+                    if (!colaCompras.isEmpty()) {
+                        String cliente = colaCompras.poll();
+                        System.out.println("Atendiendo a " + cliente);
+                        System.out.println("Escriba el numero de la pelicula que va a ver: \n" +
+                                "1) Blanca nieves - Sala 1\n" +
+                                "2) Capitan America - Sala 2\n" +
+                                "3) Minecraft movie - Sala 3 \n");
+                        int opcionPelicula = sc.nextInt();
+                        sc.nextLine();
+                        System.out.println("Escriba el numero de silla (Recordar las filas van de la A a J y son 16 sillas por cada una): ");
+                        silla = sc.nextLine().toUpperCase();
+
+                        boolean sillaDisponible = false;
+                        String pelicula = "";
+
+                        if (opcionPelicula == 1) {
+                            if (sala1.buscar(silla)) {
+                                sala1.eliminar(silla);
+                                sillaDisponible = true;
+                                pelicula = "Blanca nieves";
+                            }
+                        } else if (opcionPelicula == 2) {
+                            if (sala2.buscar(silla)) {
+                                sala2.eliminar(silla);
+                                sillaDisponible = true;
+                                pelicula = "Capitan America";
+                            }
+                        } else if (opcionPelicula == 3) {
+                            if (sala3.buscar(silla)) {
+                                sala3.eliminar(silla);
+                                sillaDisponible = true;
+                                pelicula = "Minecraft movie";
+                            }
+                        }
+
+                        if (sillaDisponible) {
+                            System.out.println("El precio de la boleta es: " + valorBoleta);
+                            System.out.println("Si va a pagar en efectivo escriba 1, si va a pagar con tarjeta escriba 2: ");
+                            int opcionPago = sc.nextInt();
+                            sc.nextLine();
+                            if (opcionPago == 1) {
+                                System.out.println("Escriba el dinero que va a pagar: ");
+                                int dinero = sc.nextInt();
+                                sc.nextLine();
+                                if (dinero >= valorBoleta) {
+                                    System.out.println("Pago aceptado. \n");
+                                    boletos.insertarBoleto(opcionPelicula, pelicula, silla);
+                                    historialCompras.push("Se compró boleto para " + pelicula + " en la silla " + silla);
+                                } else {
+                                    System.out.println("Dinero insuficiente. \n");
+                                }
+                            } else if (opcionPago == 2) {
+                                System.out.println("Escriba el numero de la tarjeta: ");
+                                String tarjeta = sc.nextLine();
+                                System.out.println("Escriba el codigo de seguridad: ");
+                                int codigo = sc.nextInt();
+                                sc.nextLine();
+                                System.out.println("Pago aceptado. \n");
+                                boletos.insertarBoleto(opcionPelicula, pelicula, silla);
+                                historialCompras.push("Se compró boleto para " + pelicula + " en la silla " + silla);
+                            } else {
+                                System.out.println("Opción no válida. \n");
+                            }
+                        } else {
+                            System.out.println("Silla no disponible. \n");
+                        }
+                    } else {
+                        System.out.println("No hay clientes en la fila para atender.");
+                    }
+                    break;
+                case 3:
                     System.out.println("Escriba el ID del boleto que desea consultar: ");
-                    op=sc.nextInt();
+                    op = sc.nextInt();
                     sc.nextLine();
                     boletos.buscarBoleto(op);
                     break;
-                case 3:
+                case 4:
                     boletos.mostrarBoleto();
                     break;
-
-
+                case 5:
+                    mostrarHistorialCompras();
+                    break;
+                case 6:
+                    System.out.println("Gracias por usar Cine Colombia. ¡Hasta pronto!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor intente de nuevo.");
             }
 
-        }while(op != 4);
+        } while (op != 6);
+    }
+
+    private static void mostrarHistorialCompras() {
+        if (historialCompras.isEmpty()) {
+            System.out.println("No hay historial de compras.");
+        } else {
+            System.out.println("Historial de compras:");
+            for (String compra : historialCompras) {
+                System.out.println(compra);
+            }
+        }
     }
 }
 
